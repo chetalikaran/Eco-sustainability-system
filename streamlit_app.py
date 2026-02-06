@@ -1,9 +1,10 @@
 import streamlit as st
 import numpy as np
-import pickle
+import pandas as pd
+import joblib
 
-# Load trained model
-model = pickle.load(open("eco_model.pkl", "rb"))
+# Load trained model (JOBLIB, not pickle)
+model = joblib.load("eco_model.pkl")
 
 st.set_page_config(
     page_title="AI Eco‑Score Predictor",
@@ -23,8 +24,17 @@ recycle = st.slider("Recyclability (%)", 0, 100, 50)
 packaging = st.selectbox("Packaging level (1–5)", [1, 2, 3, 4, 5])
 
 if st.button("Predict Eco Score"):
-    input_data = np.array([[plastic, energy, water, transport, recycle, packaging]])
-    score = model.predict(input_data)[0]
+    # Use DataFrame with column names (BEST PRACTICE)
+    input_df = pd.DataFrame([{
+        "Plastic_grams": plastic,
+        "Energy_kWh": energy,
+        "Water_L": water,
+        "Transport_km": transport,
+        "Recyclability_%": recycle,
+        "Packaging_Level": packaging
+    }])
+
+    score = model.predict(input_df)[0]
 
     st.markdown(f"## 🌍 Eco Score: **{round(score, 2)}**")
 
@@ -34,3 +44,4 @@ if st.button("Predict Eco Score"):
         st.warning("⚠️ Moderately Sustainable Product")
     else:
         st.error("❌ Not Sustainable Product")
+

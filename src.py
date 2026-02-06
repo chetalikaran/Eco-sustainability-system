@@ -23,7 +23,7 @@ df = pd.DataFrame(data)
 df.head()
 
 
-
+#heatmap 
 
 plt.figure(figsize=(6,4))
 sns.scatterplot(x='Plastic_grams', y='Eco_Score', data=df)
@@ -35,7 +35,7 @@ plt.title("Feature Correlation")
 plt.show()
 
 
-
+#trainig the data
 X = df.drop('Eco_Score', axis=1)
 y = df['Eco_Score']
 
@@ -43,14 +43,14 @@ X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_sta
 
 
 
-
+#applying randomforestregressor 
 model = RandomForestRegressor(n_estimators=100)
 model.fit(X_train,y_train)
 
 
 
 
-
+#mean absolute error
 pred = model.predict(X_test)
 
 print("R2 Score:", r2_score(y_test,pred))
@@ -58,7 +58,7 @@ print("MAE:", mean_absolute_error(y_test,pred))
 
 
 
-
+#main code
 plastic = float(input("Plastic used (grams): "))
 energy = float(input("Energy used (kWh): "))
 water = float(input("Water usage (litres): "))

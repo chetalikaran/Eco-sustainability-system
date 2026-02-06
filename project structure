@@ -1,0 +1,23 @@
+AI-Eco-Score-Predictor/
+│
+├── README.md                  # Project description, overview, usage
+│
+├── data/
+│   └── eco_score_dataset.csv  # Dataset used for training (or synthetic data)
+│
+├── notebooks/
+│   └── EcoScore_Model.ipynb   # Google Colab 
+│
+├── src/
+│   ├── data_preprocessing.py  # Data cleaning & preprocessing functions
+│   ├── model.py               # Model training (Random Forest)
+│   └── prediction.py          # User input & eco-score prediction logic
+│
+├── results/
+│   ├── graphs/                # Correlation plots, visualizations
+│   └── metrics.txt            # R2 score, MAE results
+│
+├── requirements.txt           # Python dependencies
+│
+├── .gitignore                 # Ignore cache, datasets, env files
+
